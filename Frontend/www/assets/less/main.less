@@ -1,4 +1,6 @@
 @mainColor: blue;
+@sidebar_width: 300px;
+@sidebar_collapsed_width: 40px;
 
 @import "pizza/pizza-card";
 
@@ -40,14 +42,14 @@
 		/*Allow main to be next to Nav*/
 		.main{
 			position: absolute;
-			width: calc(100% - 40px); /*keeps 100% minus nav size*/
-			margin-left: 40px;
+			width: calc(100% - @sidebar_collapsed_width); /*keeps 100% minus nav size*/
+			margin-left: @sidebar_collapsed_width;
 			float: right;
 		}
 
 		/*lets nav bar to be showed on mouseover*/
 		nav.sidebar:hover + .main{
-			margin-left: 200px;
+			margin-left: @sidebar_width;
 		}
 
 		/*Center Brand*/
@@ -100,9 +102,9 @@
 
 		/*gives sidebar width/height*/
 		nav.sidebar{
-			width: 200px;
+			width: @sidebar_width;
 			height: 100%;
-			margin-left: -160px;
+			margin-left: -@sidebar_width + @sidebar_collapsed_width;
 			float: left;
 			z-index: 8000;
 			margin-bottom: 0px;
@@ -129,8 +131,8 @@
 
 		/*Allow main to be next to Nav*/
 		.main{
-			width: calc(100% - 200px); /*keeps 100% minus nav size*/
-			margin-left: 200px;
+			width: calc(100% - @sidebar_width); /*keeps 100% minus nav size*/
+			margin-left: @sidebar_width;
 		}
 
 		/*Show all nav*/
@@ -178,4 +180,34 @@ section{
 
 .verticle-content{
     display: block;
+}
+
+#cart_total, .line_total {
+    margin-right: 10px;
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+.btn-circle.btn-lg {
+  width: 50px;
+  height: 50px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 25px;
+}
+.btn-circle.btn-xl {
+  width: 70px;
+  height: 70px;
+  padding: 10px 16px;
+  font-size: 24px;
+  line-height: 1.33;
+  border-radius: 35px;
 }

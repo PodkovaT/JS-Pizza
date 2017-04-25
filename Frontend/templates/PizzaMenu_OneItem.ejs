@@ -23,24 +23,24 @@ function getIngredientsArray(pizza) {
 
             <% if(pizza.is_new) { %>
                 <span class="label label-danger">Нова</span>
-                <% } else if(pizza.is_popular) {%>
-                    <span class="label label-success">Популярна</span>
-                    <% } %>
+            <% } else if(pizza.is_popular) {%>
+                <span class="label label-success">Популярна</span>
+            <% } %>
 
-                        <div class="caption">
-                            <span class="title"><%= pizza.title %></span>
-                            <div class="type">
-                                <%= pizza.type %>
-                            </div>
-                            <div class="description">
-                                <%= getIngredientsArray(pizza).join(", ") %>
-                            </div>
+            <div class="caption">
+                <span class="title"><%= pizza.title %></span>
+                <div class="type">
+                    <%= pizza.type %>
+                </div>
+                <div class="description">
+                    <%= getIngredientsArray(pizza).join(", ") %>
+                </div>
 
-                            <div class="buttons">
-                                <!-- Перед тим щоб показати кнопку необхідно переконатися, що піца має великий розмір -->
-                                <button class="btn btn-success buy-small<%= !pizza.small_size ? " hidden " : " " %>">Купити малу</button>
-                                <button class="btn btn-primary buy-big<%= !pizza.big_size ? " hidden " : " " %>">Купити велику</button>
-                            </div>
-                        </div>
+                <div class="buttons">
+                       <!-- Перед тим щоб показати кнопку необхідно переконатися, що піца має великий розмір -->
+                        <button class="btn btn-success buy-small<%= !pizza.small_size ? " hidden " : " " %>">Купити малу</button>
+                        <button class="btn btn-primary buy-big<%= !pizza.big_size ? " hidden " : " " %>">Купити велику</button>
+                </div>
+            </div>
         </div>
     </div>
