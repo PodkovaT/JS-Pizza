@@ -1,9 +1,23 @@
-<div>
-    <%= pizza.title %> (<%= size %>)
-    <div>Ціна: <%= pizza[size].price %> грн.</div>
+<%
+
+var size_texts = {
+    small_size: "Мала",
+    big_size: "Велика"
+};
+
+function getSizeText(size) {
+    return size_texts[size] ? size_texts[size] : size;
+}
+
+%>
+
+<div class="center-block">
+    <%= pizza.title %> (<%= getSizeText(size) %>)
+    <div>Ціна: <%= pizza[size].price * quantity %> грн.</div>
     <div>
-        <button class="btn btn-danger minus">-</button>
+        <button class="btn btn-danger minus"><i class="glyphicon glyphicon-minus"></i></button>
         <span class="label label-default"><%= quantity %></span>
-        <button class="btn btn-success plus">+</button>
+        <button class="btn btn-success plus"><i class="glyphicon glyphicon-plus"></i></button>
+        <button class="btn btn-warning remove"><i class="glyphicon glyphicon-remove"></i></button>
     </div>
 </div>

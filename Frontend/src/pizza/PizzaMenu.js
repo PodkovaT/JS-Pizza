@@ -18,6 +18,8 @@ function showPizzaList(list) {
 
         var $node = $(html_code);
 
+        console.log('showOnePizza', $node, $node.find(".buy-big"));
+
         $node.find(".buy-big").click(function(){
             PizzaCart.addToCart(pizza, PizzaCart.PizzaSize.Big);
         });
@@ -35,7 +37,7 @@ function filterPizza(filter) {
     //Масив куди потраплять піци які треба показати
     var pizza_shown = [];
 
-    Pizza_List.forEach(function(pizza){
+    plist.forEach(function(pizza){
         //Якщо піка відповідає фільтру
         //pizza_shown.push(pizza);
 
@@ -46,9 +48,13 @@ function filterPizza(filter) {
     showPizzaList(pizza_shown);
 }
 
+var plist = [];
 function initialiseMenu() {
     //Показуємо усі піци
-    showPizzaList(Pizza_List)
+    Pizza_List(function (list) {
+        plist = list;
+        showPizzaList(plist);
+    });
 }
 
 exports.filterPizza = filterPizza;
