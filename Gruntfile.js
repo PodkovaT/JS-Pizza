@@ -27,7 +27,7 @@ module.exports = function(grunt) {
             },
 
             pizza_order: {
-                src:        'Frontend/src/order.js',
+                src:        [ 'node_modules/bootstrap-validator/dist/validator.min.js', 'Frontend/src/order.js' ],
                 dest:       'Frontend/www/assets/js/order.js'
             }
         }

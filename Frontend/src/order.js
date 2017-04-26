@@ -4,8 +4,8 @@ $(function () {
     $('#testDistMatAPI').click(function () {
         var address = $('#address').val();
         calculateTime(address, function (err, result) {
-            $('#addr_error').html(err);
-            $('#addr_result').html(result);
+            $('#error').html(err);
+            $('#ssaddr_result').html(result);
         });
     });
 });
