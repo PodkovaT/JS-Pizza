@@ -16,7 +16,7 @@ module.exports = function(grunt) {
                 transform:  [ require('brfs') ],
                 browserifyOptions: {
                     //Папка з корнем джерельних кодів javascript
-                    basedir: "Frontend/src/js/"
+                    basedir: "Frontend/src/js"
                 }
             },
 
@@ -24,6 +24,11 @@ module.exports = function(grunt) {
             pizza: {
                 src:        'Frontend/src/main.js',
                 dest:       'Frontend/www/assets/js/main.js'
+            },
+
+            pizza_order: {
+                src:        'Frontend/src/order.js',
+                dest:       'Frontend/www/assets/js/order.js'
             }
         }
     };
@@ -38,7 +43,7 @@ module.exports = function(grunt) {
             //На зміни в яких файлах реагувати
             files: ['Frontend/src/**/*.js', 'Frontend/**/*.ejs'],
             //Які завдання виконувати під час зміни в файлах
-            tasks: ['browserify:pizza']
+            tasks: ['browserify:pizza', 'browserify:pizza_order']
         }
     };
 
@@ -57,6 +62,7 @@ module.exports = function(grunt) {
         [
             'browserify:pizza',
             //Інші завдання які необхідно виконати
+            'browserify:pizza_order',
         ]
     );
 

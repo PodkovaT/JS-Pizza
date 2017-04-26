@@ -1,10 +1,26 @@
+<%
+    function addAdditionalScripts(scripts) {
+        if (!scripts || !scripts.length)
+            return "";
+
+        return scripts.map(function(url) { return '<script type="text/javascript" src="' + url + '"></script>'; }).join("\r\n");
+    }
+%>
+
 <!-- jQuery JavaScript -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"> </script>
 
 <!--Bootsrap JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
+<!--Additional JavaScript files -->
+<%- addAdditionalScripts(additional_scripts) %>
+
 <!--Own JavaScript -->
-<script type="text/javascript"  src="assets/js/main.js"> </script>
+<script type="text/javascript"  src="assets/js/<%= script ? script : 'main' %>.js"> </script>
+
+<!--Additional JavaScript files AFTER main one -->
+<%- addAdditionalScripts(additional_post_scripts) %>
+
 </body>
 </html>

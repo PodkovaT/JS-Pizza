@@ -56,6 +56,11 @@ function initialiseCart() {
     updateCart();
 }
 
+function clearCart() {
+    Cart = [];
+    updateCart();
+}
+
 function getPizzaInCart() {
     //Повертає піци які зберігаються в кошику
     return Cart;
@@ -114,3 +119,4 @@ exports.getPizzaInCart = getPizzaInCart;
 exports.initialiseCart = initialiseCart;
 
 exports.PizzaSize = PizzaSize;
+exports.clearCart = clearCart;

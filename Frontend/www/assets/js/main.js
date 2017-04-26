@@ -31,7 +31,7 @@ var ejs = require('ejs');
 
 exports.PizzaMenu_OneItem = ejs.compile("<%\r\n\r\nfunction getIngredientsArray(pizza) {\r\n    //Отримує вміст піци\r\n    var content = pizza.content;\r\n    var result = [];\r\n\r\n    //Object.keys повертає масив ключів в об’єкті JavaScript\r\n\r\n    Object.keys(content).forEach(function(key){\r\n\r\n        //a.concat(b) створює спільний масив із масивів a та b\r\n        result = result.concat(content[key]);\r\n    });\r\n\r\n    return result;\r\n}\r\n\r\n   %>\r\n    <div class=\"col-md-6 col-lg-4 pizza-card\">\r\n        <div class=\"thumbnail\">\r\n            <img class=\"pizza-icon\" src=\"<%= pizza.icon %>\" alt=\"<%= pizza.title %>\">\r\n\r\n            <% if(pizza.is_new) { %>\r\n                <span class=\"label label-danger\">Нова</span>\r\n            <% } else if(pizza.is_popular) {%>\n                <span class=\"label label-success\">Популярна</span>\n            <% } %>\n\n            <div class=\"caption\">\n                <span class=\"title\"><%= pizza.title %></span>\n                <div class=\"type\">\n                    <%= pizza.type %>\n                </div>\n                <div class=\"description\">\n                    <%= getIngredientsArray(pizza).join(\", \") %>\n                </div>\n\n                <div class=\"buttons\">\n                       <!-- Перед тим щоб показати кнопку необхідно переконатися, що піца має великий розмір -->\n                        <button class=\"btn btn-success buy-small<%= !pizza.small_size ? \" hidden \" : \" \" %>\">Купити малу</button>\n                        <button class=\"btn btn-primary buy-big<%= !pizza.big_size ? \" hidden \" : \" \" %>\">Купити велику</button>\n                </div>\n            </div>\n        </div>\r\n    </div>\r\n");
 
-exports.PizzaCart_OneItem = ejs.compile("<%\r\n\r\nvar size_texts = {\r\n    small_size: \"Мала\",\r\n    big_size: \"Велика\"\r\n};\r\n\r\nfunction getSizeText(size) {\r\n    return size_texts[size] ? size_texts[size] : size;\r\n}\r\n\r\n%>\r\n\r\n    <div class=\"row\">\n        <div class=\"col-md-offset-3 col-md-6 bg-warning\">\n            <%= pizza.title %> (\n                <%= getSizeText(size) %>)\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"pull-right line_total\">Ціна:\n            <%= pizza[size].price * quantity %> грн.</div>\n    </div>\n    <div class=\"row\">\n        <div class=\"col-md-offset-3 col-md-6\">\n            <button class=\"btn btn-danger btn-circle minus\"><i class=\"glyphicon glyphicon-minus\"></i></button>\n            <span class=\"label label-default\"><%= quantity %></span>\n            <button class=\"btn btn-success btn-circle plus\"><i class=\"glyphicon glyphicon-plus\"></i></button>\n            <button class=\"btn btn-warning btn-circle remove\"><i class=\"glyphicon glyphicon-remove\"></i></button>\n        </div>\n    </div>\n");
+exports.PizzaCart_OneItem = ejs.compile("<%\r\n\r\nvar size_texts = {\r\n    small_size: \"Мала\",\r\n    big_size: \"Велика\"\r\n};\r\n\r\nfunction getSizeText(size) {\r\n    return size_texts[size] ? size_texts[size] : size;\r\n}\r\n\r\n%>\r\n\r\n    <div class=\"row\">\r\n        <div class=\"col-md-offset-3 col-md-6 bg-warning\">\r\n            <%= pizza.title %> (<%= getSizeText(size) %>)\r\n        </div>\r\n    </div>\r\n    <div class=\"row\">\r\n        <div class=\"pull-right line_total\">Ціна:\r\n            <%= pizza[size].price * quantity %> грн.</div>\r\n    </div>\r\n    <div class=\"row\">\r\n        <div class=\"col-md-offset-3 col-md-6\">\r\n            <button class=\"btn btn-danger btn-circle minus\"><i class=\"glyphicon glyphicon-minus\"></i></button>\r\n            <span class=\"label label-default\"><%= quantity %></span>\r\n            <button class=\"btn btn-success btn-circle plus\"><i class=\"glyphicon glyphicon-plus\"></i></button>\r\n            <button class=\"btn btn-warning btn-circle remove\"><i class=\"glyphicon glyphicon-remove\"></i></button>\r\n        </div>\r\n    </div>\r\n");
 
 },{"ejs":10}],3:[function(require,module,exports){
 /**
@@ -113,6 +113,11 @@ $(function(){
 
     PizzaCart.initialiseCart();
     PizzaMenu.initialiseMenu();
+
+    $('#clearCart').click(PizzaCart.clearCart);
+    $('#order').click(function() {
+       //TODO: post data to server
+    });
 });
 
 },{"./pizza/PizzaCart":5,"./pizza/PizzaMenu":6}],5:[function(require,module,exports){
@@ -174,6 +179,11 @@ function initialiseCart() {
     updateCart();
 }
 
+function clearCart() {
+    Cart = [];
+    updateCart();
+}
+
 function getPizzaInCart() {
     //Повертає піци які зберігаються в кошику
     return Cart;
@@ -232,7 +242,7 @@ exports.getPizzaInCart = getPizzaInCart;
 exports.initialiseCart = initialiseCart;
 
 exports.PizzaSize = PizzaSize;
-
+exports.clearCart = clearCart;
 },{"../Templates":2,"../storage.js":7}],6:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.
