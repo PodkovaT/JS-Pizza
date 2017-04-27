@@ -12,16 +12,14 @@ function getSizeText(size) {
 %>
 
     <div class="row">
-        <div class="col-md-offset-3 col-md-6 bg-warning">
+        <div class="col-xs-6 text-left">
             <%= pizza.title %> (<%= getSizeText(size) %>)
         </div>
-    </div>
-    <div class="row">
-        <div class="pull-right line_total">Ціна:
+        <div class="col-xs-6 text-right">Ціна:
             <%= pizza[size].price * quantity %> грн.</div>
     </div>
-    <div class="row">
-        <div class="col-md-offset-3 col-md-6">
+    <div class="row text-center">
+        <div class="col-xs-12">
             <button class="btn btn-danger btn-circle minus"><i class="glyphicon glyphicon-minus"></i></button>
             <span class="label label-default"><%= quantity %></span>
             <button class="btn btn-success btn-circle plus"><i class="glyphicon glyphicon-plus"></i></button>

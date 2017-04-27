@@ -1,15 +1,16 @@
 var address;
 $(function () {
-//    $('.hidden').hide().removeClass('hidden');
-//    $('form').validator({
-//        custom: {
-//            checkKyiv: function($el) {
-//                var matchValue = $el.data("place-id") // foo
-//                if ($el.val() !== "ChIJBUVa4U7P1EAR_kYBF9IxSXY")
-//                    return "Доставка тільки по м. Київ!";
-//            }
-//        }
-//    });
+
+    var PizzaCart = require('./pizza/PizzaCart');
+    PizzaCart.initialiseCart();
+
+    $('form').submit(function (e) {
+        console.log('submit');
+        //TODO: check if address is valid
+        //TODO: check if cart is not empty
+        //TODO: post data to server and clear cart (?)
+        return false;
+    });
 
     address = $('#address');
     address.change(function () {
