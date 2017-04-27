@@ -37,7 +37,4 @@ $(function(){
     PizzaMenu.initialiseMenu();
 
     $('#clearCart').click(PizzaCart.clearCart);
-    $('#order').click(function() {
-       //TODO: post data to server
-    });
 });

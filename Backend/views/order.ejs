@@ -1,32 +1,36 @@
 <% include common/header.ejs %>
 
+<div class="container order-form">
 <div class="row">
-<div class="col-md-offset-3 col-md-6 col-xs-12">
-<form method="post" id="order">
-  <div class="form-group">
-    <label for="name">Ім'я</label>
-    <input type="text" class="form-control" id="name" placeholder="Наприклад, Тетяна Подкова">
+<div class="col-md-offset-2 col-md-8 col-xs-12">
+<form method="post" id="order" data-toggle="validator" role="form">
+  <div class="form-group has-feedback">
+    <label for="name" class="control-label">Ім'я</label>
+    <input type="text" class="form-control" name="name" placeholder="Наприклад, Тетяна Подкова" required>
+    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+    <div class="help-block with-errors"></div>
   </div>
-  <div class="form-group">
-    <label for="address">Адреса</label>
-    <input type="text" class="form-control" id="address" placeholder="Наприклад, вул. Велика Васильківська, 9, кв. 12, під'їзд 1">
+  <div class="form-group has-feedback">
+    <label for="address" class="control-label">Адреса</label>
+    <input type="text" class="form-control" id="address" name="address" placeholder="Наприклад, вул. Велика Васильківська, 9, кв. 12, під'їзд 1" required>
+    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+    <div class="help-block with-errors"></div>
     <p class="help-text" id="eta"></p>
   </div>
   <div class="form-group">
-    <label for="phone">Контактний телефон</label>
+    <label for="phone" class="control-label">Контактний телефон</label>
     <div class="input-group">
       <span class="input-group-addon" id="phone-prefix">+380</span>
-      <input type="text" class="form-control" placeholder="991234567" id="phone" aria-describedby="phone-prefix">
-      <input type="hidden" name="phone" />
+      <input type="number" data-minlength="9" max="999999999" class="form-control" placeholder="991234567" name="phone" aria-describedby="phone-prefix" required>
     </div>
+    <div class="help-block with-errors"></div>
   </div>
-  <button type="submit" class="btn btn-default">Submit</button>
+  <button type="submit" class="btn btn-default">Надіслати замовлення</button>
 </form>
-
-<div class="panel panel-danger hidden" id="error"></div>
 
 <div id="map"></div>
 
+</div>
 </div>
 </div>
 

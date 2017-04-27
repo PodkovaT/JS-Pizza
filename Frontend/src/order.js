@@ -1,11 +1,33 @@
+var address;
 $(function () {
-    console.log('Custom page script');
+//    $('.hidden').hide().removeClass('hidden');
+//    $('form').validator({
+//        custom: {
+//            checkKyiv: function($el) {
+//                var matchValue = $el.data("place-id") // foo
+//                if ($el.val() !== "ChIJBUVa4U7P1EAR_kYBF9IxSXY")
+//                    return "Доставка тільки по м. Київ!";
+//            }
+//        }
+//    });
 
-    $('#testDistMatAPI').click(function () {
-        var address = $('#address').val();
-        calculateTime(address, function (err, result) {
-            $('#error').html(err);
-            $('#ssaddr_result').html(result);
+    address = $('#address');
+    address.change(function () {
+        var addr = address.val();
+        calculateTime(addr, function (err, result) {
+
+            var $group = address.parent('.form-group');
+            var $eta = $('#eta');
+
+            if (err) {
+                $eta.addClass('bg-danger');
+
+                result = err.message;
+            } else {
+                $eta.removeClass('bg-danger');
+            }
+
+            $eta.text(result);
         });
     });
 });
@@ -58,8 +80,9 @@ function initMap() {
 
             if (status === 'OK') {
                 if (results[0]) {
-                    var address = results[0].formatted_address;
-                    $('#address').val(address);
+                    var addr = results[0].formatted_address;
+                    address.val(addr);
+                    address.trigger('change');
                 } else
                     $('#addr_error').html('Адреси не знайдено!');
             } else
@@ -89,6 +112,11 @@ function timeCalculated(done) {
 
         try {
             if (status === "OK") {
+
+//                //Дозволяємо замовляти тільки на київську адресу
+//                if (response.rows[0].elements[1].place_id !== "ChIJBUVa4U7P1EAR_kYBF9IxSXY")
+//                    return done(null, new Error("Вибачте, але ми доставляємо піццу тільки по м. Київ"));
+
                 var element = response.rows[0].elements[0];
 
                 switch (element.status) {
