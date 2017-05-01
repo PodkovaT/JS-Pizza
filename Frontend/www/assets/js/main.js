@@ -80,12 +80,24 @@ $(function(){
 
     //This code will execute when the page is ready
     var PizzaMenu = require('./pizza/PizzaMenu');
-    var PizzaCart = require('./pizza/PizzaCart');
-
-    PizzaCart.initialiseCart();
     PizzaMenu.initialiseMenu();
 
+    var PizzaCart = require('./pizza/PizzaCart');
+    PizzaCart.initialiseCart();
     $('#clearCart').click(PizzaCart.clearCart);
+    $('#orderCart').click(function () {
+
+        if (PizzaCart.isEmpty()) {
+            console.log('Cart is empty!');
+            window.alertify.error("Додайте товар до кошику для оформлення замовлення!");
+
+            return false;
+        }
+
+        console.log('Cart is not empty');
+
+        return true;
+    });
 });
 
 },{"./pizza/PizzaCart":5,"./pizza/PizzaMenu":6}],5:[function(require,module,exports){
@@ -136,7 +148,7 @@ function removeFromCart(cart_item) {
     updateCart();
 }
 
-function initialiseCart() {
+function initialiseCart(opts) {
     //Фукнція віпрацьвуватиме при завантаженні сторінки
     //Тут можна наприклад, зчитати вміст корзини який збережено в Local Storage то показати його
 
@@ -150,6 +162,10 @@ function initialiseCart() {
 function clearCart() {
     Cart = [];
     updateCart();
+}
+
+function isEmpty() {
+    return !Cart || Cart.length === 0;
 }
 
 function getPizzaInCart() {
@@ -212,6 +228,7 @@ exports.initialiseCart = initialiseCart;
 exports.PizzaSize = PizzaSize;
 exports.clearCart = clearCart;
 
+exports.isEmpty = isEmpty;
 },{"../Templates":2,"../storage.js":7}],6:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.

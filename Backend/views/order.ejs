@@ -6,16 +6,16 @@
     </div>
     <div class="panel-body">
         <div class="container-fluid">
-            <form method="post" id="order" data-toggle="validator" role="form">
+            <form id="order" data-toggle="validator" role="form">
               <div class="form-group has-feedback">
                 <label for="name" class="control-label">Ім'я</label>
-                <input type="text" class="form-control" name="name" placeholder="Наприклад, Тетяна Подкова" required>
+                <input type="text" class="form-control" id="name" placeholder="Наприклад, Тетяна Подкова" required>
                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                 <div class="help-block with-errors"></div>
               </div>
               <div class="form-group has-feedback">
                 <label for="address" class="control-label">Адреса</label>
-                <input type="text" class="form-control" id="address" name="address" placeholder="Наприклад, вул. Велика Васильківська, 9, кв. 12, під'їзд 1" required>
+                <input type="text" class="form-control" id="address" placeholder="Наприклад, вул. Велика Васильківська, 9, кв. 12, під'їзд 1" required>
                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                 <div class="help-block with-errors"></div>
                 <p class="help-text" id="eta"></p>
@@ -24,7 +24,7 @@
                 <label for="phone" class="control-label">Контактний телефон</label>
                 <div class="input-group">
                   <span class="input-group-addon" id="phone-prefix">+380</span>
-                  <input type="text" pattern="^[0-9]{9}$" data-pattern-error="Телефон має складатися з 9 цифр" class="form-control" placeholder="991234567" name="phone" aria-describedby="phone-prefix" required>
+                  <input type="text" pattern="^[0-9]{9}$" data-pattern-error="Телефон має складатися з 9 цифр" class="form-control" placeholder="991234567" id="phone" aria-describedby="phone-prefix" required>
                 </div>
                 <div class="help-block with-errors"></div>
               </div>

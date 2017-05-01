@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "alertifyjs": "^1.10.0",
     "basil.js": "^0.4.3",
     "body-parser": "^1.14.2",
     "bootstrap-validator": "^0.11.9",

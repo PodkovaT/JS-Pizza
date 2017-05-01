@@ -4,11 +4,46 @@ $(function () {
     var PizzaCart = require('./pizza/PizzaCart');
     PizzaCart.initialiseCart();
 
+    function clearCartAndGoToStart() {
+        PizzaCart.clearCart();
+        window.location = '/';
+    }
+
+    $('#orderCart').hide();
+    $('#clearCart').click(clearCartAndGoToStart);
+
     $('form').submit(function (e) {
-        console.log('submit');
-        //TODO: check if address is valid
-        //TODO: check if cart is not empty
-        //TODO: post data to server and clear cart (?)
+
+        //check if address is valid
+        if ($('#eta').hasClass('bg-danger'))
+        {
+            alertify.error('Помилка - перевірте адресу!');
+            return false;
+        }
+
+        //check if cart is not empty
+        if (PizzaCart.isEmpty())
+        {
+            alertify.error('Помилка - кошик порожній!');
+            return false;
+        }
+
+        //post data to server and clear cart
+        var api = require('./api');
+        api.createOrder(
+            {
+                shipTo: { name: $('#name').val(), address: $('#address').val(), phone: $('#phone').val() },
+                cart: PizzaCart.getPizzaInCart().map(function(item) {
+                    return { pizza_id: item.pizza.id, size: item.size, quantity: item.quantity };
+                })
+            }, function (err, result) {
+                if (err)
+                    alertify.error('Помилка сервера - спробуйте ще раз пізніше');
+                else
+                    clearCartAndGoToStart();
+            }
+        )
+
         return false;
     });
 

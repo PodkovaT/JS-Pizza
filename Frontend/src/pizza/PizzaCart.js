@@ -45,7 +45,7 @@ function removeFromCart(cart_item) {
     updateCart();
 }
 
-function initialiseCart() {
+function initialiseCart(opts) {
     //Фукнція віпрацьвуватиме при завантаженні сторінки
     //Тут можна наприклад, зчитати вміст корзини який збережено в Local Storage то показати його
 
@@ -59,6 +59,10 @@ function initialiseCart() {
 function clearCart() {
     Cart = [];
     updateCart();
+}
+
+function isEmpty() {
+    return !Cart || Cart.length === 0;
 }
 
 function getPizzaInCart() {
@@ -120,3 +124,5 @@ exports.initialiseCart = initialiseCart;
 
 exports.PizzaSize = PizzaSize;
 exports.clearCart = clearCart;
+
+exports.isEmpty = isEmpty;

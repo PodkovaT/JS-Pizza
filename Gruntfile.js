@@ -22,7 +22,7 @@ module.exports = function(grunt) {
 
             //Збірка з назвою піца
             pizza: {
-                src:        'Frontend/src/main.js',
+                src:        [ 'Frontend/src/main.js' ],
                 dest:       'Frontend/www/assets/js/main.js'
             },
 
