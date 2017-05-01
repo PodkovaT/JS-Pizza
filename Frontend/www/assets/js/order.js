@@ -366,6 +366,7 @@ exports.PizzaSize = PizzaSize;
 exports.clearCart = clearCart;
 
 exports.isEmpty = isEmpty;
+
 },{"../Templates":1,"../storage.js":5}],5:[function(require,module,exports){
 var basil = require('basil.js');
 

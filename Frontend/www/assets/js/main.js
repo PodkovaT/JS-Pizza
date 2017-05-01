@@ -229,6 +229,7 @@ exports.PizzaSize = PizzaSize;
 exports.clearCart = clearCart;
 
 exports.isEmpty = isEmpty;
+
 },{"../Templates":2,"../storage.js":7}],6:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.
