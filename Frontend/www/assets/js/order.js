@@ -83,6 +83,9 @@ $(function () {
             return false;
         }
 
+        var $orderPanel = $('#orderPanel');
+        $orderPanel.spin();
+
         //post data to server and clear cart
         var api = require('./api');
         api.createOrder(
@@ -92,10 +95,28 @@ $(function () {
                     return { pizza_id: item.pizza.id, size: item.size, quantity: item.quantity };
                 })
             }, function (err, result) {
+
                 if (err)
                     alertify.error('Помилка сервера - спробуйте ще раз пізніше');
-                else
-                    clearCartAndGoToStart();
+                else {
+                    LiqPayCheckout.init({
+                      data: result.data,
+                      signature: result.signature,
+                      embedTo: "#orderPanel",
+                      mode: "embed" // embed || popup,
+                       }).on("liqpay.callback", function(data){
+                            console.log(data.status);
+                            console.log(data);
+                            }).on("liqpay.ready", function(data){
+                                // ready
+                            }).on("liqpay.close", function(data){
+                                // close
+                    });
+
+                    //clearCartAndGoToStart();
+                }
+
+                $orderPanel.spin(false);
             }
         )
 
@@ -242,7 +263,7 @@ window.initMap = initMap;
  * Created by chaika on 02.02.16.
  */
 var Templates = require('../Templates');
-var Storage = require('../storage.js');
+var Storage = require('../storage');
 
 //Перелік розмірів піци
 var PizzaSize = {
@@ -255,6 +276,7 @@ var Cart = [];
 
 //HTML елемент куди будуть додаватися піци
 var $cart = $("#cart");
+$cart.spin();
 
 function addToCart(pizza, size) {
     //Додавання однієї піци в кошик покупок
@@ -294,6 +316,7 @@ function initialiseCart(opts) {
         Cart = stored_cart;
 
     updateCart();
+    $cart.spin(false);
 }
 
 function clearCart() {
@@ -367,7 +390,7 @@ exports.clearCart = clearCart;
 
 exports.isEmpty = isEmpty;
 
-},{"../Templates":1,"../storage.js":5}],5:[function(require,module,exports){
+},{"../Templates":1,"../storage":5}],5:[function(require,module,exports){
 var basil = require('basil.js');
 
 basil = new basil();

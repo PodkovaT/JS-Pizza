@@ -2,7 +2,7 @@
  * Created by chaika on 02.02.16.
  */
 var Templates = require('../Templates');
-var Storage = require('../storage.js');
+var Storage = require('../storage');
 
 //Перелік розмірів піци
 var PizzaSize = {
@@ -15,6 +15,7 @@ var Cart = [];
 
 //HTML елемент куди будуть додаватися піци
 var $cart = $("#cart");
+$cart.spin();
 
 function addToCart(pizza, size) {
     //Додавання однієї піци в кошик покупок
@@ -54,6 +55,7 @@ function initialiseCart(opts) {
         Cart = stored_cart;
 
     updateCart();
+    $cart.spin(false);
 }
 
 function clearCart() {

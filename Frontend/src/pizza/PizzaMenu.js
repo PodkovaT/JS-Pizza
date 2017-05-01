@@ -7,6 +7,7 @@ var Pizza_List = require('../Pizza_List');
 
 //HTML едемент куди будуть додаватися піци
 var $pizza_list = $("#pizza_list");
+$pizza_list.spin();
 
 function showPizzaList(list) {
     //Очищаємо старі піци в кошику
@@ -31,6 +32,7 @@ function showPizzaList(list) {
     }
 
     list.forEach(showOnePizza);
+    $pizza_list.spin(false);
 }
 
 function filterPizza(filter) {

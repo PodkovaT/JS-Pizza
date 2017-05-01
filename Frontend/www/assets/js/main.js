@@ -105,7 +105,7 @@ $(function(){
  * Created by chaika on 02.02.16.
  */
 var Templates = require('../Templates');
-var Storage = require('../storage.js');
+var Storage = require('../storage');
 
 //Перелік розмірів піци
 var PizzaSize = {
@@ -118,6 +118,7 @@ var Cart = [];
 
 //HTML елемент куди будуть додаватися піци
 var $cart = $("#cart");
+$cart.spin();
 
 function addToCart(pizza, size) {
     //Додавання однієї піци в кошик покупок
@@ -157,6 +158,7 @@ function initialiseCart(opts) {
         Cart = stored_cart;
 
     updateCart();
+    $cart.spin(false);
 }
 
 function clearCart() {
@@ -230,7 +232,7 @@ exports.clearCart = clearCart;
 
 exports.isEmpty = isEmpty;
 
-},{"../Templates":2,"../storage.js":7}],6:[function(require,module,exports){
+},{"../Templates":2,"../storage":7}],6:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.
  */
@@ -240,6 +242,7 @@ var Pizza_List = require('../Pizza_List');
 
 //HTML едемент куди будуть додаватися піци
 var $pizza_list = $("#pizza_list");
+$pizza_list.spin();
 
 function showPizzaList(list) {
     //Очищаємо старі піци в кошику
@@ -264,6 +267,7 @@ function showPizzaList(list) {
     }
 
     list.forEach(showOnePizza);
+    $pizza_list.spin(false);
 }
 
 function filterPizza(filter) {

@@ -28,6 +28,9 @@ $(function () {
             return false;
         }
 
+        var $orderPanel = $('#orderPanel');
+        $orderPanel.spin();
+
         //post data to server and clear cart
         var api = require('./api');
         api.createOrder(
@@ -37,10 +40,28 @@ $(function () {
                     return { pizza_id: item.pizza.id, size: item.size, quantity: item.quantity };
                 })
             }, function (err, result) {
+
                 if (err)
                     alertify.error('Помилка сервера - спробуйте ще раз пізніше');
-                else
-                    clearCartAndGoToStart();
+                else {
+                    LiqPayCheckout.init({
+                      data: result.data,
+                      signature: result.signature,
+                      embedTo: "#orderPanel",
+                      mode: "embed" // embed || popup,
+                       }).on("liqpay.callback", function(data){
+                            console.log(data.status);
+                            console.log(data);
+                            }).on("liqpay.ready", function(data){
+                                // ready
+                            }).on("liqpay.close", function(data){
+                                // close
+                    });
+
+                    //clearCartAndGoToStart();
+                }
+
+                $orderPanel.spin(false);
             }
         )
 

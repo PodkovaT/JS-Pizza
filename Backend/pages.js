@@ -1,3 +1,5 @@
+var secret = require('./secret');
+
 exports.mainPage = function(req, res) {
     res.render('mainPage', initDefaults({
         pageTitle: 'Вибір Піци'
@@ -8,7 +10,8 @@ exports.orderPage = function(req, res) {
     res.render('order', initDefaults({
         pageTitle: 'Оформлення замовлення',
         script: 'order',
-        additional_post_scripts: [ 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDTREwLDoX04q5CNwqeiPlB12tZr4seTn4&callback=initMap&language=uk&region=UA' ]
+        additional_scripts: [ 'https://static.liqpay.com/libjs/checkout.js' ],
+        additional_post_scripts: [ 'https://maps.googleapis.com/maps/api/js?key=' + secret.googleApiKey + '&callback=initMap&language=uk&region=UA' ]
     }));
 };
 
