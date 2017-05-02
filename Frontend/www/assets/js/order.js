@@ -91,7 +91,7 @@ $(function () {
         api.createOrder(
             {
                 shipTo: { name: $('#name').val(), address: $('#address').val(), phone: $('#phone').val() },
-                cart: PizzaCart.getPizzaInCart().map(function(item) {
+                order_items: PizzaCart.getPizzaInCart().map(function(item) {
                     return { pizza_id: item.pizza.id, size: item.size, quantity: item.quantity };
                 })
             }, function (err, result) {
@@ -99,21 +99,24 @@ $(function () {
                 if (err)
                     alertify.error('Помилка сервера - спробуйте ще раз пізніше');
                 else {
-                    LiqPayCheckout.init({
+                    var liqpay_data = {
                       data: result.data,
                       signature: result.signature,
-                      embedTo: "#orderPanel",
-                      mode: "embed" // embed || popup,
-                       }).on("liqpay.callback", function(data){
-                            console.log(data.status);
-                            console.log(data);
-                            }).on("liqpay.ready", function(data){
-                                // ready
-                            }).on("liqpay.close", function(data){
-                                // close
-                    });
+                      //embedTo: "#orderPanel",
+                      mode: "popup" // embed || popup,
+                    };
+                    console.log('liqpay data to send:', JSON.stringify(liqpay_data));
 
-                    //clearCartAndGoToStart();
+                    LiqPayCheckout.init(liqpay_data).on("liqpay.callback", function(data){
+                        console.log(data.status);
+                        console.log(data);
+
+                        //clearCartAndGoToStart();
+                    }).on("liqpay.ready", function(data){
+                        // ready
+                    }).on("liqpay.close", function(data){
+                        // close
+                    });
                 }
 
                 $orderPanel.spin(false);
