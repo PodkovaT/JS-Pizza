@@ -37,14 +37,19 @@ function showPizzaList(list) {
 
 function filterPizza(filter) {
     //Масив куди потраплять піци які треба показати
-    var pizza_shown = [];
+    var pizza_shown;
 
-    plist.forEach(function(pizza){
-        //Якщо піка відповідає фільтру
-        //pizza_shown.push(pizza);
+    if (filter) {
+        pizza_shown =[];
 
-        //TODO: зробити фільтри
-    });
+        plist.forEach(function(pizza){
+            //Якщо піка відповідає фільтру
+
+            if (pizza.content[filter])
+                pizza_shown.push(pizza);
+        });
+    } else
+        pizza_shown = plist;
 
     //Показати відфільтровані піци
     showPizzaList(pizza_shown);

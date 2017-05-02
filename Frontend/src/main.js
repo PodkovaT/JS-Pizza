@@ -4,6 +4,16 @@ $(function(){
     var PizzaMenu = require('./pizza/PizzaMenu');
     PizzaMenu.initialiseMenu();
 
+    $('.filters .btn').click(function () {
+        var filter = $(this).data('filter');
+        console.log('Filter', filter);
+        PizzaMenu.filterPizza(filter);
+    });
+
+    $(".btn-group > .btn").click(function(){
+        $(this).addClass("active").siblings().removeClass("active");
+    });
+
     var PizzaCart = require('./pizza/PizzaCart');
     PizzaCart.initialiseCart();
     $('#clearCart').click(PizzaCart.clearCart);
