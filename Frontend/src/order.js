@@ -44,15 +44,12 @@ $(function () {
                 if (err)
                     alertify.error('Помилка сервера - спробуйте ще раз пізніше');
                 else {
-                    var liqpay_data = {
+                    LiqPayCheckout.init({
                       data: result.data,
                       signature: result.signature,
                       //embedTo: "#orderPanel",
                       mode: "popup" // embed || popup,
-                    };
-                    console.log('liqpay data to send:', JSON.stringify(liqpay_data));
-
-                    LiqPayCheckout.init(liqpay_data).on("liqpay.callback", function(data){
+                    }).on("liqpay.callback", function(data){
                         console.log(data.status);
                         console.log(data);
 

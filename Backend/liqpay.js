@@ -38,11 +38,12 @@ liqpay.prototype.encrypt = function(params) {
     ).toString('base64');
 
     var sha1 = crypto.createHash('sha1');
+    var hash = sha1
+            .update(this.private_key + data + this.private_key)
+            .digest('base64');
 
     return {
-        signature : new Buffer(sha1
-            .update(this.private_key.concat(data, this.private_key))
-            .digest('binary')).toString('base64'),
+        signature : hash,
         data : data
     };
 };
