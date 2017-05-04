@@ -1,3 +1,4 @@
 node_modules/
 .idea/
 /Backend/npm-debug.log
+/Backend/secret.js
