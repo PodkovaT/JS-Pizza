@@ -1,3 +1,10 @@
+function showTransactionResult(transId, error) {
+    if (error)
+        window.alertify.error("Транзакція " + transId + " не пройшла: помилка " + error + "!", 0);
+    else
+        window.alertify.success("Транзакція " + transId + " пройшла: за замовлення сплачено!");
+}
+
 var address;
 $(function () {
 
@@ -49,16 +56,27 @@ $(function () {
             if (err)
                 alertify.error('Помилка сервера - спробуйте ще раз пізніше');
             else {
+                $("#orderPanel").prepend($('<div id="liqpayOverlay"></div>'));
+
                 LiqPayCheckout.init({
                     data: result.data,
                     signature: result.signature,
-                    //embedTo: "#orderPanel",
-                    mode: "popup" // embed || popup,
+                    embedTo: "#liqpayOverlay",
+                    mode: "embed" // embed || popup,
                 }).on("liqpay.callback", function (data) {
-                    console.log(data.status);
-                    console.log(data);
 
-                    //clearCartAndGoToStart();
+                    console.log(data.status);
+                    //console.log(data);
+
+                    $("#liqpayOverlay").remove();
+
+                    if (data.status === "success" || data.status === "sandbox") {
+                        showTransactionResult(data.transaction_id);
+                        setTimeout(clearCartAndGoToStart, 10 * 1000);
+                    } else {
+                        showTransactionResult(data.transaction_id, data.err_description);
+                    }
+
                 }).on("liqpay.ready", function (data) {
                     // ready
                 }).on("liqpay.close", function (data) {
