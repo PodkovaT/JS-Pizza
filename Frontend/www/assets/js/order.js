@@ -57,7 +57,7 @@ function showTransactionResult(transId, error) {
     if (error)
         window.alertify.error("Транзакція " + transId + " не пройшла: помилка " + error + "!", 0);
     else
-        window.alertify.success("Транзакція " + transId + " пройшла: за замовлення сплачено!");
+        window.alertify.success("Транзакція " + transId + " пройшла: за замовлення сплачено!", 5000);
 }
 
 var address;
@@ -127,7 +127,7 @@ $(function () {
 
                     if (data.status === "success" || data.status === "sandbox") {
                         showTransactionResult(data.transaction_id);
-                        setTimeout(clearCartAndGoToStart, 10 * 1000);
+                        setTimeout(clearCartAndGoToStart, 5 * 1000);
                     } else {
                         showTransactionResult(data.transaction_id, data.err_description);
                     }
