@@ -6,9 +6,9 @@
 var ejs = require('ejs');
 
 
-exports.PizzaMenu_OneItem = ejs.compile("<%\r\n\r\nfunction getIngredientsArray(pizza) {\r\n    //Отримує вміст піци\r\n    var content = pizza.content;\r\n    var result = [];\r\n\r\n    //Object.keys повертає масив ключів в об’єкті JavaScript\r\n\r\n    Object.keys(content).forEach(function(key){\r\n\r\n        //a.concat(b) створює спільний масив із масивів a та b\r\n        result = result.concat(content[key]);\r\n    });\r\n\r\n    return result;\r\n}\r\n\r\n   %>\r\n    <div class=\"col-xs-12 col-md-6 col-lg-4 pizza-card\">\r\n        <div class=\"thumbnail\">\r\n            <img class=\"pizza-icon\" src=\"<%= pizza.icon %>\" alt=\"<%= pizza.title %>\">\r\n\r\n            <% if(pizza.is_new) { %>\r\n                <span class=\"label label-danger\">Нова</span>\r\n            <% } else if(pizza.is_popular) {%>\r\n                <span class=\"label label-success\">Популярна</span>\r\n            <% } %>\r\n\r\n            <div class=\"caption\">\r\n                <span class=\"title\"><%= pizza.title %></span>\r\n                <div class=\"type\">\r\n                    <%= pizza.type %>\r\n                </div>\r\n                <div class=\"description\">\r\n                    <%= getIngredientsArray(pizza).join(\", \") %>\r\n                </div>\r\n\r\n                <div class=\"buttons\">\r\n                       <!-- Перед тим щоб показати кнопку необхідно переконатися, що піца має великий розмір -->\r\n                        <button class=\"btn btn-success buy-small<%= !pizza.small_size ? \" hidden \" : \" \" %>\">Купити малу</button>\r\n                        <button class=\"btn btn-primary buy-big<%= !pizza.big_size ? \" hidden \" : \" \" %>\">Купити велику</button>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n");
+exports.PizzaMenu_OneItem = ejs.compile("<%\r\n\r\nfunction getIngredientsArray(pizza) {\r\n    //Отримує вміст піци\r\n    var content = pizza.content;\r\n    var result = [];\r\n\r\n    //Object.keys повертає масив ключів в об’єкті JavaScript\r\n\r\n    Object.keys(content).forEach(function(key){\r\n\r\n        //a.concat(b) створює спільний масив із масивів a та b\r\n        result = result.concat(content[key]);\r\n    });\r\n\r\n    return result;\r\n}\r\n\r\n   %>\r\n    <div class=\"col-xs-12 col-md-6 col-lg-4 pizza-card\">\n        <div class=\"thumbnail\">\r\n            <img class=\"pizza-icon\" src=\"<%= pizza.icon %>\" alt=\"<%= pizza.title %>\">\r\n\r\n            <% if(pizza.is_new) { %>\r\n                <span class=\"label label-danger\">Нова</span>\r\n            <% } else if(pizza.is_popular) {%>\r\n                <span class=\"label label-success\">Популярна</span>\r\n            <% } %>\r\n\r\n            <div class=\"caption\">\r\n                <span class=\"title\"><%= pizza.title %></span>\r\n                <div class=\"type\">\r\n                    <%= pizza.type %>\r\n                </div>\r\n                <div class=\"description\">\r\n                    <%= getIngredientsArray(pizza).join(\", \") %>\r\n                </div>\r\n\r\n                <div class=\"buttons\">\r\n                       <!-- Перед тим щоб показати кнопку необхідно переконатися, що піца має великий розмір -->\r\n                        <button class=\"btn btn-success buy-small<%= !pizza.small_size ? \" hidden \" : \" \" %>\">Купити малу</button>\r\n                        <button class=\"btn btn-primary buy-big<%= !pizza.big_size ? \" hidden \" : \" \" %>\">Купити велику</button>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n");
 
-exports.PizzaCart_OneItem = ejs.compile("<%\r\n\r\nvar size_texts = {\r\n    small_size: \"Мала\",\r\n    big_size: \"Велика\"\r\n};\r\n\r\nfunction getSizeText(size) {\r\n    return size_texts[size] ? size_texts[size] : size;\r\n}\r\n\r\n%>\r\n\r\n    <div class=\"row\">\r\n        <div class=\"col-xs-6 text-left\">\r\n            <%= pizza.title %> (<%= getSizeText(size) %>)\r\n        </div>\r\n        <div class=\"col-xs-6 text-right\">Ціна:\r\n            <%= pizza[size].price * quantity %> грн.</div>\r\n    </div>\r\n    <div class=\"row text-center\">\r\n        <div class=\"col-xs-12\">\r\n            <button class=\"btn btn-danger btn-circle minus\"><i class=\"glyphicon glyphicon-minus\"></i></button>\r\n            <span class=\"label label-default\"><%= quantity %></span>\r\n            <button class=\"btn btn-success btn-circle plus\"><i class=\"glyphicon glyphicon-plus\"></i></button>\r\n            <button class=\"btn btn-warning btn-circle remove\"><i class=\"glyphicon glyphicon-remove\"></i></button>\r\n        </div>\r\n    </div>\r\n");
+exports.PizzaCart_OneItem = ejs.compile("<%\r\n\r\nvar size_texts = {\r\n    small_size: \"Мала\",\r\n    big_size: \"Велика\"\r\n};\r\n\r\nfunction getSizeText(size) {\r\n    return size_texts[size] ? size_texts[size] : size;\r\n}\r\n\r\n%>\r\n\r\n    <div class=\"row\">\r\n        <div class=\"col-xs-6 text-left\">\n            <%= pizza.title %> (<%= getSizeText(size) %>)\r\n        </div>\r\n        <div class=\"col-xs-6 text-right\">Ціна:\n            <%= pizza[size].price * quantity %> грн.</div>\r\n    </div>\r\n    <div class=\"row text-center\">\n        <div class=\"col-xs-12\">\n            <button class=\"btn btn-danger btn-circle minus\"><i class=\"glyphicon glyphicon-minus\"></i></button>\r\n            <span class=\"label label-default\"><%= quantity %></span>\r\n            <button class=\"btn btn-success btn-circle plus\"><i class=\"glyphicon glyphicon-plus\"></i></button>\r\n            <button class=\"btn btn-warning btn-circle remove\"><i class=\"glyphicon glyphicon-remove\"></i></button>\r\n        </div>\r\n    </div>\r\n");
 
 },{"ejs":8}],2:[function(require,module,exports){
 /**
@@ -70,15 +70,13 @@ $(function () {
     $('form').submit(function (e) {
 
         //check if address is valid
-        if ($('#eta').hasClass('bg-danger'))
-        {
+        if ($('#eta').hasClass('bg-danger')) {
             alertify.error('Помилка - перевірте адресу!');
             return false;
         }
 
         //check if cart is not empty
-        if (PizzaCart.isEmpty())
-        {
+        if (PizzaCart.isEmpty()) {
             alertify.error('Помилка - кошик порожній!');
             return false;
         }
@@ -88,37 +86,43 @@ $(function () {
 
         //post data to server and clear cart
         var api = require('./api');
-        api.createOrder(
-            {
-                shipTo: { name: $('#name').val(), address: $('#address').val(), phone: $('#phone').val() },
-                order_items: PizzaCart.getPizzaInCart().map(function(item) {
-                    return { pizza_id: item.pizza.id, size: item.size, quantity: item.quantity };
-                })
-            }, function (err, result) {
+        api.createOrder({
+            shipTo: {
+                name: $('#name').val(),
+                address: $('#address').val(),
+                phone: $('#phone').val()
+            },
+            order_items: PizzaCart.getPizzaInCart().map(function (item) {
+                return {
+                    pizza_id: item.pizza.id,
+                    size: item.size,
+                    quantity: item.quantity
+                };
+            })
+        }, function (err, result) {
 
-                if (err)
-                    alertify.error('Помилка сервера - спробуйте ще раз пізніше');
-                else {
-                    LiqPayCheckout.init({
-                      data: result.data,
-                      signature: result.signature,
-                      //embedTo: "#orderPanel",
-                      mode: "popup" // embed || popup,
-                    }).on("liqpay.callback", function(data){
-                        console.log(data.status);
-                        console.log(data);
+            if (err)
+                alertify.error('Помилка сервера - спробуйте ще раз пізніше');
+            else {
+                LiqPayCheckout.init({
+                    data: result.data,
+                    signature: result.signature,
+                    //embedTo: "#orderPanel",
+                    mode: "popup" // embed || popup,
+                }).on("liqpay.callback", function (data) {
+                    console.log(data.status);
+                    console.log(data);
 
-                        //clearCartAndGoToStart();
-                    }).on("liqpay.ready", function(data){
-                        // ready
-                    }).on("liqpay.close", function(data){
-                        // close
-                    });
-                }
-
-                $orderPanel.spin(false);
+                    //clearCartAndGoToStart();
+                }).on("liqpay.ready", function (data) {
+                    // ready
+                }).on("liqpay.close", function (data) {
+                    // close
+                });
             }
-        )
+
+            $orderPanel.spin(false);
+        })
 
         return false;
     });
@@ -164,7 +168,11 @@ function initMap() {
         map: map,
         animation: google.maps.Animation.DROP,
         title: 'Ваша піцца!',
-        icon: 'assets/images/map-icon.png'
+        icon: {
+            url: 'assets/images/map-icon.png',
+            size: new google.maps.Size(50, 50),
+            anchor: new google.maps.Point(25, 25)
+        }
     });
 
     map.addListener('click', function (e) {
@@ -180,7 +188,12 @@ function initMap() {
                 animation: google.maps.Animation.DROP,
                 draggable: true,
                 title: 'Ваша хата!',
-                icon: 'assets/images/home-icon.png'
+                icon: {
+                    url: 'assets/images/home-icon.png',
+                    size: new google.maps.Size(50, 50),
+                    anchor: new google.maps.Point(25, 25)
+                }
+
             });
 
         my_place.setPosition(location);
@@ -225,9 +238,9 @@ function timeCalculated(done) {
         try {
             if (status === "OK") {
 
-//                //Дозволяємо замовляти тільки на київську адресу
-//                if (response.rows[0].elements[1].place_id !== "ChIJBUVa4U7P1EAR_kYBF9IxSXY")
-//                    return done(null, new Error("Вибачте, але ми доставляємо піццу тільки по м. Київ"));
+                //                //Дозволяємо замовляти тільки на київську адресу
+                //                if (response.rows[0].elements[1].place_id !== "ChIJBUVa4U7P1EAR_kYBF9IxSXY")
+                //                    return done(null, new Error("Вибачте, але ми доставляємо піццу тільки по м. Київ"));
 
                 var element = response.rows[0].elements[0];
 

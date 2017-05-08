@@ -15,15 +15,13 @@ $(function () {
     $('form').submit(function (e) {
 
         //check if address is valid
-        if ($('#eta').hasClass('bg-danger'))
-        {
+        if ($('#eta').hasClass('bg-danger')) {
             alertify.error('Помилка - перевірте адресу!');
             return false;
         }
 
         //check if cart is not empty
-        if (PizzaCart.isEmpty())
-        {
+        if (PizzaCart.isEmpty()) {
             alertify.error('Помилка - кошик порожній!');
             return false;
         }
@@ -33,37 +31,43 @@ $(function () {
 
         //post data to server and clear cart
         var api = require('./api');
-        api.createOrder(
-            {
-                shipTo: { name: $('#name').val(), address: $('#address').val(), phone: $('#phone').val() },
-                order_items: PizzaCart.getPizzaInCart().map(function(item) {
-                    return { pizza_id: item.pizza.id, size: item.size, quantity: item.quantity };
-                })
-            }, function (err, result) {
+        api.createOrder({
+            shipTo: {
+                name: $('#name').val(),
+                address: $('#address').val(),
+                phone: $('#phone').val()
+            },
+            order_items: PizzaCart.getPizzaInCart().map(function (item) {
+                return {
+                    pizza_id: item.pizza.id,
+                    size: item.size,
+                    quantity: item.quantity
+                };
+            })
+        }, function (err, result) {
 
-                if (err)
-                    alertify.error('Помилка сервера - спробуйте ще раз пізніше');
-                else {
-                    LiqPayCheckout.init({
-                      data: result.data,
-                      signature: result.signature,
-                      //embedTo: "#orderPanel",
-                      mode: "popup" // embed || popup,
-                    }).on("liqpay.callback", function(data){
-                        console.log(data.status);
-                        console.log(data);
+            if (err)
+                alertify.error('Помилка сервера - спробуйте ще раз пізніше');
+            else {
+                LiqPayCheckout.init({
+                    data: result.data,
+                    signature: result.signature,
+                    //embedTo: "#orderPanel",
+                    mode: "popup" // embed || popup,
+                }).on("liqpay.callback", function (data) {
+                    console.log(data.status);
+                    console.log(data);
 
-                        //clearCartAndGoToStart();
-                    }).on("liqpay.ready", function(data){
-                        // ready
-                    }).on("liqpay.close", function(data){
-                        // close
-                    });
-                }
-
-                $orderPanel.spin(false);
+                    //clearCartAndGoToStart();
+                }).on("liqpay.ready", function (data) {
+                    // ready
+                }).on("liqpay.close", function (data) {
+                    // close
+                });
             }
-        )
+
+            $orderPanel.spin(false);
+        })
 
         return false;
     });
@@ -109,7 +113,11 @@ function initMap() {
         map: map,
         animation: google.maps.Animation.DROP,
         title: 'Ваша піцца!',
-        icon: 'assets/images/map-icon.png'
+        icon: {
+            url: 'assets/images/map-icon.png',
+            size: new google.maps.Size(50, 50),
+            anchor: new google.maps.Point(25, 25)
+        }
     });
 
     map.addListener('click', function (e) {
@@ -125,7 +133,12 @@ function initMap() {
                 animation: google.maps.Animation.DROP,
                 draggable: true,
                 title: 'Ваша хата!',
-                icon: 'assets/images/home-icon.png'
+                icon: {
+                    url: 'assets/images/home-icon.png',
+                    size: new google.maps.Size(50, 50),
+                    anchor: new google.maps.Point(25, 25)
+                }
+
             });
 
         my_place.setPosition(location);
@@ -170,9 +183,9 @@ function timeCalculated(done) {
         try {
             if (status === "OK") {
 
-//                //Дозволяємо замовляти тільки на київську адресу
-//                if (response.rows[0].elements[1].place_id !== "ChIJBUVa4U7P1EAR_kYBF9IxSXY")
-//                    return done(null, new Error("Вибачте, але ми доставляємо піццу тільки по м. Київ"));
+                //                //Дозволяємо замовляти тільки на київську адресу
+                //                if (response.rows[0].elements[1].place_id !== "ChIJBUVa4U7P1EAR_kYBF9IxSXY")
+                //                    return done(null, new Error("Вибачте, але ми доставляємо піццу тільки по м. Київ"));
 
                 var element = response.rows[0].elements[0];
 
